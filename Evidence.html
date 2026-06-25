@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EVIDENCE & REFLECTIONS — Portfolio | Ralph Gabriel Acula</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    aero: {
+                        deepPurple: '#1e0a2d',
+                        brightPurple: '#a855f7',
+                        neonViolet: '#c084fc',
+                        glossyWhite: 'rgba(255, 255, 255, 0.15)',
+                        paneBorder: 'rgba(168, 85, 247, 0.35)'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'Segoe UI', 'sans-serif'],
+                },
+                boxShadow: {
+                    'aero-glass': '0 12px 40px 0 rgba(46, 16, 101, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.15)',
+                    'aero-glow': '0 0 25px rgba(168, 85, 247, 0.45)',
+                    'orb-glow': 'inset -4px -4px 12px rgba(0,0,0,0.3), 0 8px 16px rgba(168, 85, 247, 0.4)'
+                }
+            }
+        }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+
+    body {
+      background: url('material 3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #0f0518;
+      color: #e9d5ff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .aero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at 70% 10%, rgba(192, 132, 252, 0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 80%, rgba(147, 51, 234, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(88, 28, 135, 0.3) 0%, transparent 70%);
+    }
+
+    .aero-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-a { width: 500px; height: 400px; background: radial-gradient(circle, rgba(192, 132, 252, 0.25), transparent); top: -100px; right: -100px; }
+    .blob-b { width: 350px; height: 350px; background: radial-gradient(circle, rgba(126, 34, 206, 0.2), transparent); bottom: 100px; left: -80px; }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(30, 10, 45, 0.35) 0%, rgba(20, 5, 35, 0.20) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(192, 132, 252, 0.25);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+      pointer-events: none;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .section-header {
+      background: linear-gradient(90deg, rgba(147, 51, 234, 0.3) 0%, transparent 100%);
+      border-left: 4px solid #c084fc;
+      padding: 12px 20px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 24px;
+    }
+
+    .media-container {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(192, 132, 252, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      position: relative;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(20, 5, 35, 0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.4); border-radius: 3px; }
+
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(5, 0, 15, 0.88);
+      backdrop-filter: blur(18px);
+      align-items: center;
+      justify-content: center;
+      animation: lbFadeIn 0.2s ease;
+    }
+    #lightbox.open { display: flex; }
+    @keyframes lbFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .lightbox-inner {
+      position: relative;
+      width: 80vw;
+      height: 76vh;
+      max-width: 960px;
+      margin-top: 64px;
+      background: linear-gradient(145deg, rgba(30,10,50,0.7), rgba(15,5,30,0.6));
+      border: 1px solid rgba(192,132,252,0.35);
+      border-radius: 20px;
+      box-shadow: 0 8px 60px rgba(168,85,247,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: lbSlideUp 0.22s ease;
+    }
+    @keyframes lbSlideUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .lightbox-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(168,85,247,0.2);
+      background: rgba(20,5,40,0.5);
+      flex-shrink: 0;
+    }
+
+    .lightbox-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      padding: 12px;
+    }
+
+    #lightboxImg { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; display: none; }
+    #lightboxPdf { width: 100%; height: 100%; border: none; border-radius: 8px; display: none; }
+
+    .enlarge-btn {
+      position: absolute; top: 10px; right: 10px; z-index: 25;
+      background: rgba(88,28,135,0.7); border: 1px solid rgba(192,132,252,0.5);
+      border-radius: 8px; color: #e9d5ff; padding: 5px 10px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em;
+      cursor: pointer; backdrop-filter: blur(8px); display: flex; align-items: center; gap: 5px;
+      opacity: 0; transition: opacity 0.2s, background 0.2s;
+    }
+    .group:hover .enlarge-btn { opacity: 1; }
+    .enlarge-btn:hover { background: rgba(126,34,206,0.85); }
+
+    .lb-close-btn {
+      background: rgba(126,34,206,0.5); border: 1px solid rgba(192,132,252,0.4);
+      border-radius: 8px; color: #e9d5ff; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: background 0.15s; flex-shrink: 0;
+    }
+    .lb-close-btn:hover { background: rgba(168,85,247,0.7); }
+
+    .lb-nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(88,28,135,0.65); border: 1px solid rgba(192,132,252,0.4);
+      border-radius: 50%; color: white; width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      backdrop-filter: blur(6px); transition: background 0.15s; z-index: 10;
+    }
+    .lb-nav-btn:hover { background: rgba(126,34,206,0.85); }
+    .lb-nav-btn.left  { left: 12px; }
+    .lb-nav-btn.right { right: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="aero-bg"></div>
+<div class="aero-blob blob-a"></div>
+<div class="aero-blob blob-b"></div>
+
+<nav class="sticky top-4 z-50 mx-auto w-[95%] max-w-7xl px-6 md:px-8 py-3.5 flex justify-between items-center transition-all duration-300 rounded-[24px] border border-purple-400/40" style="background: rgba(45, 20, 75, 0.45); backdrop-filter: blur(25px); box-shadow: 0 8px 32px rgba(147, 51, 234, 0.15), inset 0 1px 0 rgba(255,255,255,0.2);">
+    <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-[#a855f7] via-[#7e22ce] to-[#4c1d95] p-[2px] shadow-orb-glow relative overflow-hidden group">
+            <div class="absolute inset-0 bg-white/10 rounded-full"></div>
+            <div class="absolute top-0 left-0 right-0 h-[45%] bg-white/40 rounded-t-full"></div>
+            <div class="w-full h-full rounded-full flex items-center justify-center relative z-10 bg-gradient-to-br from-[#4c1d95] to-[#2e1065]">
+                <img src="monkey.jpg" alt="Profile" class="w-full h-full object-cover rounded-full drop-shadow" />
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-bold text-lg leading-tight text-white tracking-tight flex items-center gap-1.5">
+                Ralph Gabriel Acula
+                <span class="px-2 py-0.5 text-[10px] bg-purple-500/25 border border-purple-400 text-purple-300 font-extrabold rounded-full uppercase tracking-wider">BLIS</span>
+            </span>
+            <span class="text-xs font-bold text-purple-400 tracking-wider uppercase">PNU Developmental Portfolio</span>
+        </div>
+    </div>
+
+    <ul class="hidden lg:flex items-center space-x-1.5 font-bold text-sm text-purple-100 bg-purple-900/40 p-1.5 rounded-full border border-purple-400/40 shadow-inner backdrop-blur-sm">
+        <li><a href="index.html" class="block px-4.5 py-2.5 rounded-full hover:bg-purple-400/30 hover:text-white transition-all">Introduction</a></li>
+        <li><a href="stats.html" class="block px-4.5 py-2.5 rounded-full hover:bg-purple-400/30 hover:text-white transition-all">Self-Assessment</a></li>
+        <li><a href="evidence.html" class="block px-4.5 py-2.5 rounded-full bg-gradient-to-b from-purple-400/70 to-purple-600/50 text-white shadow-md transition-all border border-purple-400/50">Evidence &amp; Reflections</a></li>
+    </ul>
+
+    <button id="mobileMenuBtn" class="lg:hidden text-purple-300 p-2 bg-purple-950/60 rounded-full border border-purple-500/40 hover:bg-purple-900/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    </button>
+</nav>
+
+<div id="mobileDrawer" class="hidden fixed inset-x-4 top-24 z-40 p-6 flex flex-col gap-4 shadow-2xl transition-all duration-300 rounded-[24px] border border-purple-400/40" style="background: rgba(30, 10, 55, 0.95); backdrop-filter: blur(25px);">
+    <a href="index.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-purple-500/20 border-b border-purple-500/30">Introduction</a>
+    <a href="stats.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-purple-500/20 border-b border-purple-500/30">Self-Assessment</a>
+    <a href="evidence.html" class="text-lg font-bold text-purple-300 bg-purple-500/20 p-3 rounded-xl">Evidence &amp; Reflections</a>
+</div>
+
+<main class="relative z-10 max-w-6xl mx-auto px-4 py-12">
+
+  <div class="glass-card p-8 mb-10 text-center">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-3" style="text-shadow:0 2px 10px rgba(168, 85, 247, 0.6);">Evidence &amp; Reflections</h1>
+    <p class="text-sm font-medium tracking-widest uppercase mb-4" style="color:rgba(216, 180, 254, 0.8);">Means of Verification (MOV)</p>
+    <p class="text-sm leading-relaxed max-w-3xl mx-auto text-justify text-purple-100/80">
+      This section contains the necessary evidence verifying the results of my Self-Assessment Tool for Aspiring Teachers. Each entry includes direct links or visual representations of my work alongside a concise reflection.
+    </p>
+  </div>
+
+<div class="mb-12">
+    <div class="section-header">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-purple-400">Outcome 1</span> | Digital Literate &amp; Data-Driven Decision Maker</h2>
+    </div>
+    <div class="glass-card p-6 mb-6">
+      <h3 class="text-lg font-bold text-purple-300 mb-4 border-b border-purple-500/30 pb-2">Indicators 1.1 – 1.4: Digital Competence &amp; Output Presentation</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Evidence Files</p>
+          <div class="media-container relative group bg-black/40">
+            <img id="img1" src="" alt="Evidence" class="w-full h-full object-contain transition-opacity duration-300 absolute inset-0" style="opacity:0; display:none;" />
+            <iframe id="pdf1" src="" class="w-full h-full absolute inset-0 rounded-xl transition-opacity duration-300" style="opacity:0; display:none; border:none; min-height:380px;" allow="fullscreen"></iframe>
+            
+            <button onclick="openLightbox(1)" class="enlarge-btn"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Enlarge</button>
+            <button onclick="prevSlide(1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+            <button onclick="nextSlide(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+            
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-purple-500/30 backdrop-blur-md z-20"><span id="count1" class="text-xs font-bold text-purple-200 tracking-widest">1 / 1</span></div>
+          </div>
+          
+          <div class="flex flex-col items-end w-full mt-1">
+            <div id="fileTypeLabel1" class="flex items-center justify-end gap-1.5">
+              <div id="carouselIconWrap1" class="flex items-center justify-center w-6 h-6 rounded-md" style="background:linear-gradient(135deg,rgba(168,85,247,0.3),rgba(88,28,135,0.35)); border:1px solid rgba(192,132,252,0.3);">
+                <img id="carouselIconImg1" src="photos.png" alt="Image" class="w-4 h-4 object-contain" style="display:block;" />
+                <img id="carouselIconPdf1" src="book.png" alt="PDF" class="w-4 h-4 object-contain" style="display:none;" />
+              </div>
+              <span id="carouselTypeText1" class="text-xs text-purple-400/60 italic">Image</span>
+              <a href="https://drive.google.com/drive/folders/1qCiiD2BbBA-rNh99pUfmmkGgPXmicBkq?usp=sharing" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-300 hover:text-white underline mt-1 text-right transition-colors block">Open full folder ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Reflection</p>
+          <div class="bg-black/20 p-5 rounded-xl border border-purple-500/20 h-full">
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">For indicators 1.1-1.4 I am showcasing some of the digital outputs I had uploaded for my first year, I used mainly canva, docs, and sheets.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Using these online applications wasn't really new to me, I had used them since grade 3 I reckon, for this year it was all about getting my skills in check and experimenting with rather interesting and new ways of doing things, for example with sheets I was not too well equipped with handling MMW problems aswell as much of creative design in Canva.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100">Alas, by the 2nd term I was already used to doing things in canva, docs, drive, it was all quite repetitive but of course, every now and then I would have problems especially when it comes to digital art and doing things that required a lot of trial and error, I would say trial and error and canva were some of the things that slowed down my work process, even if I think I'm a somewhat creatively sound person.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-12">
+    <div class="section-header">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-purple-400">Outcome 2</span> | Design Thinker &amp; Innovator</h2>
+    </div>
+    <div class="glass-card p-6 mb-6">
+      <h3 class="text-lg font-bold text-purple-300 mb-4 border-b border-purple-500/30 pb-2">Indicators 2.1 – 2.3: Creative &amp; Critical Problem Solving</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Evidence Files</p>
+          <div class="media-container relative group bg-black/40">
+            <img id="img2" src="" alt="Evidence" class="w-full h-full object-contain transition-opacity duration-300 absolute inset-0" style="opacity:0; display:none;" />
+            <iframe id="pdf2" src="" class="w-full h-full absolute inset-0 rounded-xl transition-opacity duration-300" style="opacity:0; display:none; border:none; min-height:380px;" allow="fullscreen"></iframe>
+            
+            <button onclick="openLightbox(2)" class="enlarge-btn"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Enlarge</button>
+            <button onclick="prevSlide(2)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+            <button onclick="nextSlide(2)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+            
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-purple-500/30 backdrop-blur-md z-20"><span id="count2" class="text-xs font-bold text-purple-200 tracking-widest">1 / 1</span></div>
+          </div>
+          
+          <div class="flex flex-col items-end w-full mt-1">
+            <div id="fileTypeLabel2" class="flex items-center justify-end gap-1.5">
+              <div id="carouselIconWrap2" class="flex items-center justify-center w-6 h-6 rounded-md" style="background:linear-gradient(135deg,rgba(168,85,247,0.3),rgba(88,28,135,0.35)); border:1px solid rgba(192,132,252,0.3);">
+                <img id="carouselIconImg2" src="photos.png" alt="Image" class="w-4 h-4 object-contain" style="display:block;" />
+                <img id="carouselIconPdf2" src="book.png" alt="PDF" class="w-4 h-4 object-contain" style="display:none;" />
+              </div>
+              <span id="carouselTypeText2" class="text-xs text-purple-400/60 italic">Image</span>
+            </div>
+            <a href="" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-300 hover:text-white underline mt-1 text-right transition-colors block">Open full folder ↗</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Reflection</p>
+          <div class="bg-black/20 p-5 rounded-xl border border-purple-500/20 h-full">
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Indicators 2.1-2.3 mainly centre on creativity, visual multimedia, and interdisciplinary work.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Even though Canva and design work are akin to my weakness, I powered through and still kept in touch with my creative side, making sure the designs I submitted were all up-to-par and could stand on their own. The second file showcases my group's STS capstone project which was I would say is a very creative design that amplifies an outside light source to save electricity. It's all very intriguing.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100">For the next year, I will aim to be more comfortable with canva, I'm comfortable with much more complex fields like music production and video editing, why shouldn't I try to be better at ppt designs and photo editing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="mb-12">
+    <div class="section-header">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-purple-400">Outcome 3</span> | Discerning and Compassionate Person</h2>
+    </div>
+    <div class="glass-card p-6 mb-6">
+      <h3 class="text-lg font-bold text-purple-300 mb-4 border-b border-purple-500/30 pb-2">Indicators 3.1 – 3.3: Ethical & Empathetic Decision-Making</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Evidence Files</p>
+          <div class="media-container relative group bg-black/40">
+            <img id="img3" src="" alt="Evidence" class="w-full h-full object-contain transition-opacity duration-300 absolute inset-0" style="opacity:0; display:none;" />
+            <iframe id="pdf3" src="" class="w-full h-full absolute inset-0 rounded-xl transition-opacity duration-300" style="opacity:0; display:none; border:none; min-height:380px;" allow="fullscreen"></iframe>
+            
+            <button onclick="openLightbox(3)" class="enlarge-btn"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Enlarge</button>
+            <button onclick="prevSlide(3)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+            <button onclick="nextSlide(3)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+            
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-purple-500/30 backdrop-blur-md z-20"><span id="count3" class="text-xs font-bold text-purple-200 tracking-widest">1 / 1</span></div>
+          </div>
+
+          <div class="flex flex-col items-end w-full mt-1">
+            <div id="fileTypeLabel3" class="flex items-center justify-end gap-1.5">
+              <div id="carouselIconWrap3" class="flex items-center justify-center w-6 h-6 rounded-md" style="background:linear-gradient(135deg,rgba(168,85,247,0.3),rgba(88,28,135,0.35)); border:1px solid rgba(192,132,252,0.3);">
+                <img id="carouselIconImg3" src="photos.png" alt="Image" class="w-4 h-4 object-contain" style="display:block;" />
+                <img id="carouselIconPdf3" src="book.png" alt="PDF" class="w-4 h-4 object-contain" style="display:none;" />
+              </div>
+              <span id="carouselTypeText3" class="text-xs text-purple-400/60 italic">Image</span>
+            </div>
+            <a href="" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-300 hover:text-white underline mt-1 text-right transition-colors block">Open full folder ↗</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Reflection</p>
+          <div class="bg-black/20 p-5 rounded-xl border border-purple-500/20 h-full">
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">For Indicators 3.1-3.3, it focuses on ethical and self-evaluation side of some solo and group work. For example there is an A.I declaration form that is ethical because it shows some of the info you gathered came from artificial intelligence which may or may not be accurate, apart from that there are also group works that focus on growth, ethics of ai, and philosophy.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Growth and philosophy go hand in hand when it comes to self evaluation or self-assessment, that's what it takes to be a discerning person, and overall discerning educator, you have to see things from a bigger picture but also be able to see things through a microscope, i.e., see it clearly.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100">As what I said on the document on growth, it is a constant process, and of course I hope to constantly grow and evolve as a person to eventually become a more complete and discerning person.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-12">
+    <div class="section-header">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-purple-400">Outcome 4</span> | Dynamic Lifelong Learner & Leader</h2>
+    </div>
+    <div class="glass-card p-6 mb-6">
+      <h3 class="text-lg font-bold text-purple-300 mb-4 border-b border-purple-500/30 pb-2">Indicators 4.1 – 4.3: Continuous Learning & Growth</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Evidence Files</p>
+          <div class="media-container relative group bg-black/40">
+            <img id="img4" src="" alt="Evidence" class="w-full h-full object-contain transition-opacity duration-300 absolute inset-0" style="opacity:0; display:none;" />
+            <iframe id="pdf4" src="" class="w-full h-full absolute inset-0 rounded-xl transition-opacity duration-300" style="opacity:0; display:none; border:none; min-height:380px;" allow="fullscreen"></iframe>
+            
+            <button onclick="openLightbox(4)" class="enlarge-btn"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Enlarge</button>
+            <button onclick="prevSlide(4)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+            <button onclick="nextSlide(4)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+            
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-purple-500/30 backdrop-blur-md z-20"><span id="count4" class="text-xs font-bold text-purple-200 tracking-widest">1 / 1</span></div>
+          </div>
+          
+          <div class="flex flex-col items-end w-full mt-1">
+            <div id="fileTypeLabel4" class="flex items-center justify-end gap-1.5">
+              <div id="carouselIconWrap4" class="flex items-center justify-center w-6 h-6 rounded-md" style="background:linear-gradient(135deg,rgba(168,85,247,0.3),rgba(88,28,135,0.35)); border:1px solid rgba(192,132,252,0.3);">
+                <img id="carouselIconImg4" src="photos.png" alt="Image" class="w-4 h-4 object-contain" style="display:block;" />
+                <img id="carouselIconPdf4" src="book.png" alt="PDF" class="w-4 h-4 object-contain" style="display:none;" />
+              </div>
+              <span id="carouselTypeText4" class="text-xs text-purple-400/60 italic">Image</span>
+            </div>
+            <a href="" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-300 hover:text-white underline mt-1 text-right transition-colors block">Open full folder ↗</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Reflection</p>
+          <div class="bg-black/20 p-5 rounded-xl border border-purple-500/20 h-full">
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">As for Indicators 4.1-4.3 I want to showcase my journey of continuous learning, through philosophy, group work, and self evaluation.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Through heidegger's existential philosophy I came to realize that life should have meaning, and that through learning and relationships I can give more meaning to my life. As for the other files it shows self-reflection and my work in the capstone project of my block, at that point in term 1 and term 2 it was probably the most taxing work I had to, I was paired with my friend and we had to do the designs of all the group's doc files, along with balancing other activities, that whole stint basically told me that I have to be more efficient and led me to growth by asking for help.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100">For my future prospects I just want to continue doing well, being able to work on projects, and lastly not giving up.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-12">
+    <div class="section-header">
+      <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-purple-400">Outcome 5</span> | Deeply-rooted Global Citizen</h2>
+    </div>
+    <div class="glass-card p-6 mb-6">
+      <h3 class="text-lg font-bold text-purple-300 mb-4 border-b border-purple-500/30 pb-2">Indicators 5.1 – 5.3: Inclusive & Sustainable Perspectives</h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Evidence Files</p>
+          <div class="media-container relative group bg-black/40">
+            <img id="img5" src="" alt="Evidence" class="w-full h-full object-contain transition-opacity duration-300 absolute inset-0" style="opacity:0; display:none;" />
+            <iframe id="pdf5" src="" class="w-full h-full absolute inset-0 rounded-xl transition-opacity duration-300" style="opacity:0; display:none; border:none; min-height:380px;" allow="fullscreen"></iframe>
+            
+            <button onclick="openLightbox(5)" class="enlarge-btn"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>Enlarge</button>
+            <button onclick="prevSlide(5)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+            <button onclick="nextSlide(5)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-900/60 hover:bg-purple-600/80 text-white p-2 rounded-full border border-purple-400/50 backdrop-blur-sm transition-all opacity-0 group-hover:opacity-100 z-20"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+            
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full border border-purple-500/30 backdrop-blur-md z-20"><span id="count5" class="text-xs font-bold text-purple-200 tracking-widest">1 / 1</span></div>
+          </div>
+          
+          <div class="flex flex-col items-end w-full mt-1">
+            <div id="fileTypeLabel5" class="flex items-center justify-end gap-1.5">
+              <div id="carouselIconWrap5" class="flex items-center justify-center w-6 h-6 rounded-md" style="background:linear-gradient(135deg,rgba(168,85,247,0.3),rgba(88,28,135,0.35)); border:1px solid rgba(192,132,252,0.3);">
+                <img id="carouselIconImg5" src="photos.png" alt="Image" class="w-4 h-4 object-contain" style="display:block;" />
+                <img id="carouselIconPdf5" src="book.png" alt="PDF" class="w-4 h-4 object-contain" style="display:none;" />
+              </div>
+              <span id="carouselTypeText5" class="text-xs text-purple-400/60 italic">Image</span>
+            </div>
+            <a href="" target="_blank" rel="noopener noreferrer" class="text-xs text-purple-300 hover:text-white underline mt-1 text-right transition-colors block">Open full folder ↗</a>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-xs font-semibold text-purple-400 uppercase tracking-wider">Reflection</p>
+          <div class="bg-black/20 p-5 rounded-xl border border-purple-500/20 h-full">
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Finally, we reflect on what it means to be a global citizen, for me it's about taking in different cultures and not being prejudiced on it, aswell as being open to other cultures and other point of views.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100 mb-4">Through acting in the short informational video I learned more about VAW and how we can prevent it, I also learned more about Filipino culture through Filipinolohiya, it opened a whole new world of Filipino psychology, anthropology, and humanity for me, which I did not know of before, as for the Tableau it covered the hardships of students from elementary through university, for my role I was a high school student.</p>
+            <p class="text-justify leading-relaxed text-sm text-purple-100">For aspects that need improvement, it would probably Filipino music, art, and creative culture in general, I feel that I still haven't fully delved into the full depth of Filipinolohiya.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lightbox" onclick="handleLightboxClick(event)">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <div class="lightbox-topbar">
+        <div class="flex items-center gap-3">
+          <span id="lbFileLabel" class="text-xs font-bold text-purple-300 uppercase tracking-widest">Viewing File</span>
+          <span id="lbCounter" class="text-xs text-purple-400/70"></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="lb-close-btn" onclick="closeLightbox()"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+      </div>
+      <div class="lightbox-content">
+        <button class="lb-nav-btn left" onclick="lbPrev()"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg></button>
+        <img id="lightboxImg" src="" alt="Evidence enlarged" />
+        <iframe id="lightboxPdf" src=""></iframe>
+        <button class="lb-nav-btn right" onclick="lbNext()"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+    </div>
+  </div>
+
+   <section id="preparation-desk" class="w-full max-w-7xl glass-pane p-8 relative border-t-2 border-purple-400/70 overflow-hidden text-left">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+            </div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl">
+                    <h3 class="text-2xl font-black text-white flex items-center gap-2.5">
+                        Overall Reflection
+                    </h3>
+                    <p class="text-justify text-xs md:text-lg text-purple-100/80 font-medium leading-relaxed">
+                    This whole portfolio took quite a long time for me to make, it required a lot of watching videos, tutorials, and looking things up, I am quite thankful I had some experience with programming back in high school, but of course it has certainly diminished since then. I am happy to have accomplished this portfolio and consider it to be the final feat of my first year, after this I can look forward to my 2nd year and hopefully do better. Again thank you for reading this and viewing this portfolio. Till' next time!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+</main>
+
+<script>
+document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+    document.getElementById('mobileDrawer').classList.toggle('hidden');
+});
+document.querySelectorAll('#mobileDrawer a').forEach(link => {
+    link.addEventListener('click', () => document.getElementById('mobileDrawer').classList.add('hidden'));
+});
+</script>
+
+<script>
+    const filesData = {
+        1: [
+            "1Digital-literate/digital_literate1.png",
+            "1Digital-literate/digital_literate2.png",
+            "1Digital-literate/acula_piracy.pdf",
+            "1Digital-literate/acula_eflex.pdf"
+        ],
+        2: [
+            "2Design-thinker/design1.pdf",
+            "2Design-thinker/design2.pdf",
+            "2Design-thinker/design3.pdf",
+        ],
+        3: [
+            "3Discerning-person/Discerning1.pdf",
+            "3Discerning-person/Discerning2.pdf",
+            "3Discerning-person/Discerning3.pdf",
+            "3Discerning-person/Discerning4.pdf"
+        ],
+        4: [
+            "4Lifelong-learner/learner1.pdf",
+            "4Lifelong-learner/learner2.pdf",
+            "4Lifelong-learner/learner3.pdf"
+        ],
+        5: [
+            "https://drive.google.com/file/d/1AbCAqR0fwM6_4syWX_jTHco0g218fQZ0/preview",
+            "https://drive.google.com/file/d/1dqatIr1kieyUYRmsPXp1V4ZlKZMYR03e/preview",
+            "5Global-citizen/Culture1.jpg",
+            "5Global-citizen/Culture2.pdf"
+        ]
+    };
+
+    let currentIndex = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let currentLightboxId = null;
+
+    function needsIframe(url) {
+        if (!url) return false;
+        const lowerUrl = url.toLowerCase();
+        return lowerUrl.endsWith('.pdf') || lowerUrl.includes('drive.google.com');
+    }
+
+    function updateSlide(id) {
+        if (!filesData[id] || filesData[id].length === 0) return;
+        
+        const imgEl = document.getElementById(`img${id}`);
+        const pdfEl = document.getElementById(`pdf${id}`);
+        const countEl = document.getElementById(`count${id}`);
+        
+        const labelTextEl = document.getElementById(`carouselTypeText${id}`);
+        const iconImgEl = document.getElementById(`carouselIconImg${id}`);
+        const iconPdfEl = document.getElementById(`carouselIconPdf${id}`);
+        
+        imgEl.style.opacity = 0;
+        pdfEl.style.opacity = 0;
+
+        setTimeout(() => {
+            const file = filesData[id][currentIndex[id]];
+            countEl.innerText = `${currentIndex[id] + 1} / ${filesData[id].length}`;
+
+            if (labelTextEl && iconImgEl && iconPdfEl) {
+                if (file.toLowerCase().includes('drive.google.com')) {
+                    labelTextEl.innerText = 'Video / Drive File';
+                    iconImgEl.style.display = 'none';
+                    iconPdfEl.style.display = 'block';
+                } else if (file.toLowerCase().endsWith('.pdf')) {
+                    labelTextEl.innerText = 'PDF Document';
+                    iconImgEl.style.display = 'none';
+                    iconPdfEl.style.display = 'block';
+                } else {
+                    labelTextEl.innerText = 'Image';
+                    iconImgEl.style.display = 'block';
+                    iconPdfEl.style.display = 'none';
+                }
+            }
+
+            if (needsIframe(file)) {
+                imgEl.style.display = 'none';
+                pdfEl.style.display = 'block';
+                pdfEl.src = file;
+                pdfEl.style.opacity = 1;
+            } else {
+                pdfEl.style.display = 'none';
+                imgEl.style.display = 'block';
+                imgEl.src = file;
+                imgEl.style.opacity = 1;
+            }
+        }, 150);
+    }
+
+    function prevSlide(id) {
+        const length = filesData[id].length;
+        currentIndex[id] = (currentIndex[id] === 0) ? length - 1 : currentIndex[id] - 1;
+        updateSlide(id);
+    }
+
+    function nextSlide(id) {
+        const length = filesData[id].length;
+        currentIndex[id] = (currentIndex[id] === length - 1) ? 0 : currentIndex[id] + 1;
+        updateSlide(id);
+    }
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+    const lbPdf = document.getElementById('lightboxPdf');
+    const lbCounter = document.getElementById('lbCounter');
+    const lbLabel = document.getElementById('lbFileLabel');
+
+    function openLightbox(id) {
+        if (!filesData[id] || filesData[id].length === 0) return;
+        currentLightboxId = id;
+        updateLightboxContent();
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+        lbPdf.src = '';
+        currentLightboxId = null;
+    }
+
+    function handleLightboxClick(e) {
+        if (e.target === lightbox) closeLightbox();
+    }
+
+    function updateLightboxContent() {
+        const id = currentLightboxId;
+        const file = filesData[id][currentIndex[id]];
+        lbCounter.innerText = `${currentIndex[id] + 1} / ${filesData[id].length}`;
+
+        if (needsIframe(file)) {
+            lbImg.style.display = 'none';
+            lbPdf.style.display = 'block';
+            lbPdf.src = file;
+            lbLabel.innerText = file.includes('drive.google.com') ? 'VIDEO / DRIVE FILE' : 'PDF DOCUMENT';
+        } else {
+            lbPdf.style.display = 'none';
+            lbImg.style.display = 'block';
+            lbImg.src = file;
+            lbLabel.innerText = 'IMAGE FILE';
+        }
+    }
+
+    function lbPrev() {
+        if (!currentLightboxId) return;
+        prevSlide(currentLightboxId);
+        updateLightboxContent();
+    }
+
+    function lbNext() {
+        if (!currentLightboxId) return;
+        nextSlide(currentLightboxId);
+        updateLightboxContent();
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft' && lightbox.classList.contains('open')) lbPrev();
+        if (e.key === 'ArrowRight' && lightbox.classList.contains('open')) lbNext();
+    });
+
+    window.onload = () => {
+        [1, 2, 3, 4, 5].forEach(id => updateSlide(id));
+    };
+</script>
+
+</body>
+</html>

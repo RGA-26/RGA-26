@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ralph Gabriel Acula | PNU Developmental Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        aero: {
+                            deepBlue: '#041624',
+                            deepGreen: '#032415',
+                            emeraldCyan: '#34d399',
+                            skyBlue: '#0284c7',
+                            electricCyan: '#00F0FF',
+                            grassGreen: '#10b981',
+                            glossyWhite: 'rgba(255, 255, 255, 0.15)',
+                            paneBorder: 'rgba(52, 211, 153, 0.35)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'aero-glass': '0 12px 40px 0 rgba(2, 44, 34, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.15)',
+                        'aero-glow': '0 0 25px rgba(16, 185, 129, 0.45)',
+                        'button-gloss': 'inset 0 4px 6px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(2, 44, 34, 0.2)',
+                        'orb-glow': 'inset -4px -4px 12px rgba(0,0,0,0.3), 0 8px 16px rgba(16, 185, 129, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            background-image: linear-gradient(180deg, rgba(10, 120, 90, 0.45) 0%, rgba(8, 60, 100, 0.55) 100%), url('perfect_hue_47.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #E2F1E8;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .glass-pane {
+            background: rgba(20, 90, 60, 0.30);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(100, 230, 180, 0.45);
+            box-shadow: 0 10px 32px 0 rgba(2, 44, 34, 0.18);
+            border-radius: 24px;
+        }
+
+        .glass-pane-dark {
+            background: rgba(10, 50, 35, 0.45);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+        }
+
+        .btn-aero-blue {
+            position: relative;
+            background: linear-gradient(180deg, #2dd4bf 0%, #14b8a6 50%, #0d9488 51%, #0f766e 100%);
+            border: 1.5px solid #0d9488;
+            border-radius: 999px;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.55), 0 4px 10px rgba(45, 212, 191, 0.35);
+        }
+
+        .btn-aero-blue::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 48%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.02));
+            border-radius: 999px 999px 50% 50% / 999px 999px 20% 20%;
+        }
+
+        .btn-aero-blue:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.6), 0 8px 18px rgba(45, 212, 191, 0.5);
+        }
+
+        .btn-aero-green {
+            position: relative;
+            background: linear-gradient(180deg, #6ee7b7 0%, #34d399 50%, #10b981 51%, #059669 100%);
+            border: 1.5px solid #10b981;
+            border-radius: 999px;
+            color: white;
+            font-weight: 600;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.35);
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.55), 0 4px 10px rgba(52, 211, 153, 0.35);
+        }
+
+        .btn-aero-green::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 48%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.02));
+            border-radius: 999px 999px 50% 50% / 999px 999px 20% 20%;
+        }
+
+        .btn-aero-green:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.6), 0 8px 18px rgba(52, 211, 153, 0.55);
+        }
+
+        .bouncing-bubble {
+            animation: bounce-aero 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce-aero {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.02); }
+            100% { transform: translateY(5px) scale(0.98); }
+        }
+
+        .parallax-frame {
+            background-image: linear-gradient(to bottom, rgba(10, 60, 40, 0.25), rgba(8, 50, 35, 0.55)), url('perfect_hue_49.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+        }
+
+        .glass-orb {
+            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, rgba(52,211,153,0.1) 80%, transparent 100%);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <div class="fixed top-1/4 -left-12 w-64 h-64 rounded-full glass-orb pointer-events-none z-0 animate-pulse"></div>
+    <div class="fixed bottom-10 right-4 w-96 h-96 rounded-full glass-orb pointer-events-none z-0" style="opacity: 0.5;"></div>
+
+    <nav class="sticky top-4 z-50 mx-auto w-[95%] max-w-7xl px-6 md:px-8 py-3.5 flex justify-between items-center transition-all duration-300 rounded-[24px] border border-emerald-300/40" style="background: rgba(30, 110, 75, 0.35); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15), inset 0 1px 0 rgba(255,255,255,0.2);">
+        <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-[#10b981] via-[#047857] to-[#064e3b] p-[2px] shadow-orb-glow relative overflow-hidden group">
+                <div class="absolute inset-0 bg-white/10 rounded-full"></div>
+                <div class="absolute top-0 left-0 right-0 h-[45%] bg-white/40 rounded-t-full"></div>
+                <div class="w-full h-full rounded-full flex items-center justify-center relative z-10 bg-gradient-to-br from-[#064e3b] to-[#042f2e]">
+                    <img src="monkey.jpg" alt="Monkey pfp" class="w-full h-full object-cover rounded-full drop-shadow" />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <span class="font-bold text-lg leading-tight text-white tracking-tight flex items-center gap-1.5">
+                    Ralph Gabriel Acula
+                    <span class="px-2 py-0.5 text-[10px] bg-emerald-500/25 border border-emerald-400 text-emerald-300 font-extrabold rounded-full uppercase tracking-wider">BLiS</span>
+                </span>
+                <span class="text-xs font-bold text-emerald-400 tracking-wider uppercase">PNU Developmental Portfolio</span>
+            </div>
+        </div>
+
+        <ul class="hidden lg:flex items-center space-x-1.5 font-bold text-sm text-emerald-100 bg-emerald-400/20 p-1.5 rounded-full border border-emerald-400/40 shadow-inner backdrop-blur-sm">
+            <li><a href="#hero" class="block px-4.5 py-2.5 rounded-full bg-gradient-to-b from-emerald-300/70 to-emerald-400/50 text-white shadow-md transition-all border border-emerald-300/50">Introduction</a></li>
+            <li><a href="stats.html" class="block px-4.5 py-2.5 rounded-full hover:bg-emerald-300/30 hover:text-white transition-all">Self-Assessment</a></li>
+            <li><a href="evidence.html" class="block px-4.5 py-2.5 rounded-full hover:bg-emerald-300/30 hover:text-white transition-all">Evidence &amp; Reflections</a></li>
+        </ul>
+
+        <button id="mobileMenuBtn" class="lg:hidden text-emerald-300 p-2 bg-emerald-950/40 rounded-full border border-emerald-500/30 hover:bg-emerald-900/50 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <div id="mobileDrawer" class="hidden fixed inset-x-4 top-24 z-40 glass-pane p-6 flex flex-col gap-4 shadow-2xl transition-all duration-300">
+        <a href="#hero" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-emerald-400/20 border-b border-emerald-400/30">Introduction</a>
+        <a href="stats.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-emerald-400/20 border-b border-emerald-400/30">Self-Assessment</a>
+        <a href="evidence.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-emerald-400/20">Evidence &amp; Reflections</a>
+    </div>
+
+    <main class="flex-grow flex flex-col items-center w-full px-4 pt-8 pb-20 z-10 space-y-16 md:space-y-28">
+
+        <section id="hero" class="w-full max-w-7xl flex flex-col lg:flex-row items-center justify-between gap-12 mt-4 lg:mt-8">
+            <div class="w-full lg:w-7/12 flex flex-col items-start text-left space-y-7 relative z-10">
+                <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-pane text-xs font-extrabold text-[#34d399] shadow-sm border border-emerald-400/30">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#10b981] animate-pulse shadow-glow"></span>
+                    2ND YEAR • BACHELOR OF LIBRARY AND INFORMATION SCIENCE
+                </div>
+                
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-white drop-shadow-sm">
+                    Navigating My <br />
+                    <span class="bg-gradient-to-r from-[#10b981] via-emerald-400 to-[#00F0FF] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(16,185,129,0.3)]">
+                        Developmental Portfolio
+                    </span>
+                </h1>
+                
+                <p class="text-justify text-base md:text-lg text-emerald-100/90 max-w-2xl font-medium leading-relaxed glass-pane p-5 border-l-[6px] border-l-[#10b981] rounded-r-xl shadow-inner bg-emerald-950/30">
+                    Welcome to my portfolio! I am <strong class="text-emerald-300">Ralph Gabriel Acula</strong>. This nostalgic electronic space serves as the archive of my initial academic step into the first year of university, it aims to highlight some of the developmental steps I went through and was designed to scale over my journey in PNU and the BLiS course.
+                </p>
+                
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#purpose" class="btn-aero-blue px-8 py-3.5 text-base flex items-center gap-2.5">
+                        <img src="my_files.png" alt="gallery Icon" class="w-5 h-5 object-contain" />
+                        Purpose &amp; Importance
+                    </a>
+                    <a href="#about-profile" class="btn-aero-green px-8 py-3.5 text-base flex items-center gap-2.5">
+                        <img src="gallery.png" alt="Folder Icon" class="w-5 h-5 object-contain" />
+                        Student Profile
+                    </a>
+                    <a href="stats.html" class="btn-aero-blue px-8 py-3.5 text-base flex items-center gap-2.5" style="background: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 51%, #1e40af 100%); border-color: #1e40af;">
+                        <span style="font-size: 1.25rem;">⬡</span>
+                        STATS
+                    </a>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-5/12 relative flex justify-center">
+                <div class="relative w-80 h-[28rem] md:w-[24rem] glass-pane p-4 rounded-[32px] overflow-hidden shadow-aero-glass border-t-2 border-l-2 border-emerald-400/50 bouncing-bubble flex flex-col justify-between">
+                    <div class="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent pointer-events-none z-10"></div>
+                    
+                    <div class="relative w-full h-[85%] rounded-2xl overflow-hidden border border-emerald-500/30 bg-emerald-950/50 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-[#022c22] to-[#042f2e] opacity-90"></div>
+                        
+                        <img src="Acula Portrait.jpg" alt="Ralph Gabriel Acula Portrait" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 z-10" />
+                        
+                        <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-emerald-900/30 pointer-events-none z-20"></div>
+
+                        <div class="absolute bottom-3.5 left-3.5 right-3.5 z-30 bg-emerald-950/95 backdrop-blur-md border border-emerald-500/40 p-3 rounded-xl flex items-center justify-between shadow-lg">
+                            <div>
+                                <h4 class="text-xs font-black text-white">Ralph Gabriel Acula</h4>
+                                <p class="text-[10px] text-emerald-300 font-extrabold flex items-center gap-1 mt-0.5">
+                                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Pre-Service Educator
+                                </p>
+                            </div>
+                            <img src="contacts.png" alt="Card Badge" class="w-6 h-6 object-contain" />
+                        </div>
+                    </div>
+
+                    <div class="relative z-20 bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-500/20 flex justify-between items-center h-[11%]">
+                        <span class="text-[10px] text-emerald-300/80 font-bold">Status: Year 1 Portfolio Active</span>
+                        <span class="text-[10px] text-emerald-400 font-black">2nd Year BLiS</span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="purpose" class="w-full max-w-7xl rounded-[32px] overflow-hidden shadow-2xl relative border border-emerald-400/40">
+            <div class="absolute inset-0 parallax-frame"></div>
+            
+            <div class="absolute inset-0 bg-gradient-to-tr from-[#022c22]/60 via-[#031d10]/50 to-[#041d30]/45 mix-blend-multiply pointer-events-none"></div>
+
+            <div class="relative z-10 px-6 py-12 md:p-16 flex flex-col lg:flex-row gap-12 items-center text-white">
+                <div class="w-full lg:w-5/12 flex flex-col items-start text-left">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#10b981] via-emerald-800 to-[#032415] shadow-lg flex items-center justify-center mb-6 relative overflow-hidden border border-emerald-400/30">
+                        <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/25 rounded-t-full"></div>
+                        <img src="my_files.png" alt="Files Icon" class="w-9 h-9 object-contain relative z-10 drop-shadow-sm" />
+                    </div>
+                    <span class="text-xs font-extrabold uppercase tracking-widest text-[#00F0FF] mb-2">BOR-APPROVED MANDATE</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight drop-shadow">
+                        Purpose & Importance
+                    </h2>
+                    <div class="h-1.5 w-24 bg-gradient-to-r from-[#10b981] to-[#00F0FF] rounded-full mt-4 mb-2"></div>
+                </div>
+
+                <div class="w-full lg:w-7/12 space-y-6 text-emerald-100/90 leading-relaxed font-medium text-sm md:text-base">
+                    <p class="text-justify glass-pane-dark p-6 text-white border-l-4 border-l-[#00F0FF] rounded-l-none">
+                        According to the <strong class="text-emerald-300">BOR-Approved Enhanced Experiential Learning Pathway for PNU TEDPaths Curriculum (U-3781, s. 2024)</strong>, a developmental portfolio is a “comprehensive portfolio showcasing a student's progress and achievements across various courses. This portfolio includes reflections, assignments, projects, and other artifacts demonstrating learning and development.”
+                    </p>
+                    <p class="text-justify glass-pane-dark p-6 text-white border-l-4 border-l-[#10b981] rounded-l-none">
+                        The Developmental Portfolio in Year 1 serves as the exit point for the <strong class="text-[#00F0FF]">Aspiring Teacher Stage</strong> and marks the culmination of the initial year in the program. This portfolio will be continuously updated and referenced throughout the four-year stay at the University, documenting professional growth, competencies, and reflective practice.
+                    </p>
+                    <div class="p-5 bg-emerald-950/50 border border-emerald-500/30 rounded-2xl flex items-start gap-4">
+                        <span class="text-2xl mt-0.5">🌱</span>
+                        <p class="text-justify text-sm text-emerald-100/90">
+                            <strong>Why is this important?</strong> It's simply an archive, a digital shelf where I can store the progress I have made in my journey to being a professional, it will capture the struggles, accomplishments, and aspects that need to be worked on.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8" id="about-profile">
+            
+            <section class="lg:col-span-5 glass-pane p-8 flex flex-col justify-between relative overflow-hidden group border-t-2 border-emerald-400/30">
+                <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                    <img src="contacts.png" alt="Big Contacts Icon" class="w-36 h-36 object-contain" />
+                </div>
+                
+                <div class="space-y-6 relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-emerald-600 via-emerald-800 to-emerald-950 p-[3px] shadow-md relative overflow-hidden border border-emerald-400/30">
+                            <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/20 rounded-t-full"></div>
+                            <div class="w-full h-full rounded-full bg-emerald-950/70 flex items-center justify-center">
+                                <img src="Acula Badge.png" alt="Acula Badge" class="w-full h-full object-cover rounded-full drop-shadow" />
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-xs font-extrabold text-emerald-400 tracking-wider uppercase">STUDENT PROFILE</span>
+                            <h3 class="text-2xl font-black text-white">Meet Ralph</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="text-justify space-y-4 text-emerald-100/90 font-medium text-sm md:text-base leading-relaxed">
+                        <p>
+                            Yo, what's up? I'm <strong class="text-[#00F0FF] font-bold">Ralph Gabriel Acula</strong>, currently an <strong> incoming 2nd year student in the Bachelor of Library and Information Science (BLiS) program</strong> at the Philippine Normal University.
+                        </p>
+                        <p>
+                            My journey in BLiS started in my penchant for archiving and overall management of information and media, I've always had a liking for archiving related to a media I'm interested in, be it fashion, music, or games. Throughout my first year in the Aspiring Teacher Stage, I have practiced and improved upon my foundation in understanding pedagogy, student behaviour, and basics of information science.
+                        </p>
+                        <p>
+                            This developmental portfolio opens a digital window into my being and first year of university. Apart from archiving, I also have interests in old media (as you can see from this portfolio design), video games, music production, and many other forms of media.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-5 border-t border-emerald-500/30 flex items-center justify-between relative z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-emerald-300 font-extrabold text-sm shadow-inner">
+                            RGA
+                        </div>
+                        <div class="text-xs">
+                            <p class="font-extrabold text-white">Ralph Gabriel Acula</p>
+                            <p class="text-emerald-400 font-semibold">BLiS Program • Year 1 Portfolio Archive</p>
+                        </div>
+                    </div>
+                    <img src="camera.png" alt="Aero Badge Icon" class="w-8 h-8 object-contain" />
+                </div>
+            </section>
+
+            <section class="lg:col-span-7 glass-pane p-8 flex flex-col justify-between relative overflow-hidden border-t-2 border-emerald-400/30">
+                <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-400 via-[#10b981] to-[#00F0FF]"></div>
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-black text-white flex items-center gap-3">
+                        <img src="groupcast_music.png" alt="Tuning Wave" class="w-8 h-8 object-contain" />
+                        Emerging Educational Guiding Principles
+                    </h3>
+                    <p class="text-xs text-emerald-300 font-bold uppercase tracking-wider">
+                        My evolving philosophical framework for learning and teaching in the 21st century:
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="bg-emerald-950/30 p-4.5 rounded-2xl border border-emerald-500/20 shadow-sm flex gap-4 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-700 flex items-center justify-center text-white font-extrabold relative overflow-hidden shadow-sm">
+                                <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/20"></div>
+                                1
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-extrabold text-white text-sm md:text-base flex items-center gap-2">
+                                    Adaptive Information Literacy
+                                </h4>
+                                <p class="text-xs md:text-sm text-emerald-100/80 mt-1 leading-relaxed">
+                                    The knowledge and teaching methods we implement must adapt to our modern digital age. I believe educators must equip future learners with the library and information-literacy skills required to navigate the complex state of media and information in today's world.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-950/30 p-4.5 rounded-2xl border border-emerald-500/20 shadow-sm flex gap-4 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-b from-teal-400 to-teal-700 flex items-center justify-center text-white font-extrabold relative overflow-hidden shadow-sm">
+                                <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/20"></div>
+                                2
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-extrabold text-white text-sm md:text-base flex items-center gap-2">
+                                    Reflection-Driven Development
+                                </h4>
+                                <p class="text-xs md:text-sm text-emerald-100/80 mt-1 leading-relaxed">
+                                    Honest and active reflection is the core mechanism of developmental growth. By tracking aspects that need improvement, I aim to refine the capacities and weaknesses of my performance continuously.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-950/30 p-4.5 rounded-2xl border border-emerald-500/20 shadow-sm flex gap-4 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-b from-sky-400 to-sky-700 flex items-center justify-center text-white font-extrabold relative overflow-hidden shadow-sm">
+                                <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/20"></div>
+                                3
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-extrabold text-white text-sm md:text-base flex items-center gap-2">
+                                    Inclusive Technological Integration
+                                </h4>
+                                <p class="text-xs md:text-sm text-emerald-100/80 mt-1 leading-relaxed">
+                                    Integrating tech tools is not just about flashing screens; it is about establishing dynamic accessibility. Modern tools must build intuitive bridges that foster inclusive, interactive spaces for all types of intelligence.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-950/30 p-4.5 rounded-2xl border border-emerald-500/20 shadow-sm flex gap-4 hover:shadow-md transition-shadow">
+                            <div class="flex-shrink-0 w-11 h-11 rounded-full bg-gradient-to-b from-violet-400 to-violet-700 flex items-center justify-center text-white font-extrabold relative overflow-hidden shadow-sm">
+                                <div class="absolute top-0 left-0 right-0 h-1/2 bg-white/20"></div>
+                                4
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-extrabold text-white text-sm md:text-base flex items-center gap-2">
+                                    Interest and Passion First
+                                </h4>
+                                <p class="text-xs md:text-sm text-emerald-100/80 mt-1 leading-relaxed">
+                                    I consider genuine curiosity as the most powerful driver to meaningful learning. Before learning something you must first centre the interests and passions of every learner, and I highly stick to this idea as I'm a person with many interests.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section id="preparation-desk" class="w-full max-w-7xl glass-pane p-8 relative border-t-2 border-emerald-400/35 overflow-hidden text-left">
+            <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                <img src="my_files.png" alt="Files Badge" class="w-48 h-48 object-contain" />
+            </div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl">
+                    <span class="text-xs font-extrabold text-emerald-400 tracking-wider uppercase">PORTFOLIO SUBMISSION</span>
+                    <h3 class="text-2xl font-black text-white flex items-center gap-2.5">
+                        <img src="my_files.png" alt="Files Mini Logo" class="w-7 h-7 object-contain" />
+                        Developmental Portfolio Attestation
+                    </h3>
+                    <p class="text-justify text-xs md:text-base text-emerald-100/80 font-medium leading-relaxed">
+                        This digital window documents the journey and stairs I had to climb on my path in PNU. It will cover the milestones, experience, and path of a pre-service educator. I would like to <span class="bg-gradient-to-r from-[#10b981] via-emerald-400 to-[#00F0FF] bg-clip-text text-transparent filter drop-shadow-[0_2px_10px_rgba(16,185,129,0.3)]">THANK YOU</span> for personally viewing this portfolio website, as my programming/coding skills are not the best, I hope you were able to view this website with no problems.
+                    </p>
+                </div>
+                
+                <div class="w-full md:w-auto min-w-[320px] bg-emerald-950/40 border border-emerald-500/20 rounded-2xl p-6 shadow-inner text-center">
+                    <p class="text-[10px] text-emerald-300 uppercase font-bold tracking-widest mb-1">Portfolio Status</p>
+                    <p class="text-sm font-black text-white">READY FOR REVIEW</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+
+        if (mobileMenuBtn && mobileDrawer) {
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileDrawer.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('#mobileDrawer a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileDrawer.classList.add('hidden');
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!mobileDrawer.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileDrawer.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

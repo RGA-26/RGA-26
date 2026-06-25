@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STATS — Self-Assessment | Ralph Gabriel Acula</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    aero: {
+                        deepBlue: '#041624',
+                        deepGreen: '#032415',
+                        emeraldCyan: '#34d399',
+                        skyBlue: '#0284c7',
+                        electricCyan: '#00F0FF',
+                        grassGreen: '#10b981',
+                        glossyWhite: 'rgba(255, 255, 255, 0.15)',
+                        paneBorder: 'rgba(52, 211, 153, 0.35)'
+                    }
+                },
+                fontFamily: {
+                    sans: ['Inter', 'Segoe UI', 'sans-serif'],
+                },
+                boxShadow: {
+                    'aero-glass': '0 12px 40px 0 rgba(2, 44, 34, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.15)',
+                    'aero-glow': '0 0 25px rgba(16, 185, 129, 0.45)',
+                    'button-gloss': 'inset 0 4px 6px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(2, 44, 34, 0.2)',
+                    'orb-glow': 'inset -4px -4px 12px rgba(0,0,0,0.3), 0 8px 16px rgba(16, 185, 129, 0.4)'
+                }
+            }
+        }
+    }
+</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+
+    body {
+      background: url('material.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #041624;
+      color: #e2e8f0;
+      min-height: 100vh;
+      overflow-x: hidden;
+    } 
+
+    .aero-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at 70% 10%, rgba(80,160,255,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 80%, rgba(40,100,220,0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(20,60,160,0.3) 0%, transparent 70%);
+    }
+
+    .aero-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-a { width: 500px; height: 400px; background: radial-gradient(circle, rgba(60,140,255,0.25), transparent); top: -100px; right: -100px; }
+    .blob-b { width: 350px; height: 350px; background: radial-gradient(circle, rgba(30,80,200,0.2), transparent); bottom: 100px; left: -80px; }
+    .blob-c { width: 250px; height: 200px; background: radial-gradient(circle, rgba(100,180,255,0.15), transparent); top: 40%; left: 40%; }
+
+    .glass-nav {
+      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(100,160,255,0.08) 100%);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(100,160,255,0.25);
+      box-shadow: 0 2px 20px rgba(0,30,100,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+
+    .nav-link {
+      color: rgba(180,210,255,0.85);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-link:hover {
+      background: rgba(100,160,255,0.15);
+      border-color: rgba(100,160,255,0.3);
+      color: #fff;
+    }
+    .nav-link.active {
+      background: linear-gradient(180deg, rgba(100,170,255,0.25), rgba(60,120,230,0.2));
+      border-color: rgba(100,160,255,0.4);
+      color: #fff;
+    }
+
+    .glass-card {
+      background: linear-gradient(145deg, rgba(0, 20, 40, 0.7) 0%, rgba(0, 40, 80, 0.6) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(100,160,255,0.2);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,20,80,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 45%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 100%);
+      pointer-events: none;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .dove-banner {
+      background-image: linear-gradient(145deg, rgba(10, 30, 70, 0.7) 0%, rgba(4, 22, 36, 0.4) 100%), url('material 2.jpg');
+      background-size: cover;
+      background-position: center;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(100,160,255,0.3);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,20,80,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-btn {
+      display: inline-block;
+      padding: 8px 22px;
+      background: linear-gradient(180deg, rgba(140,190,255,0.25) 0%, rgba(60,120,230,0.3) 50%, rgba(80,140,240,0.25) 100%);
+      border: 1px solid rgba(140,190,255,0.45);
+      border-bottom-color: rgba(60,100,200,0.5);
+      border-radius: 24px;
+      color: #d0e8ff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      box-shadow: 0 2px 10px rgba(40,100,220,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .glass-btn:hover {
+      background: linear-gradient(180deg, rgba(160,210,255,0.3) 0%, rgba(80,140,240,0.35) 50%, rgba(100,160,240,0.3) 100%);
+      box-shadow: 0 4px 16px rgba(60,120,220,0.4), inset 0 1px 0 rgba(255,255,255,0.25);
+      transform: translateY(-1px);
+    }
+
+    .hero-orb {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 28%, rgba(255,255,255,0.95) 0%, rgba(140,200,255,0.7) 30%, rgba(60,140,255,0.65) 65%, rgba(20,80,220,0.85) 100%);
+      border: 1.5px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 24px rgba(40,100,255,0.5), inset 0 -4px 14px rgba(20,60,200,0.4), inset 0 4px 10px rgba(255,255,255,0.7);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .orb-shine {
+      position: absolute;
+      top: 10px; left: 13px;
+      width: 28px; height: 16px;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.95), transparent);
+      border-radius: 50%;
+      transform: rotate(-20deg);
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 6px;
+      background: rgba(10,25,60,0.5);
+      border-radius: 16px;
+      border: 1px solid rgba(80,130,255,0.2);
+    }
+    .tab-btn {
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(160,200,255,0.7);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      background: rgba(80,140,255,0.12);
+      color: rgba(200,225,255,0.9);
+      border-color: rgba(80,130,255,0.25);
+    }
+    .tab-btn.active {
+      background: linear-gradient(180deg, rgba(100,170,255,0.25), rgba(60,120,240,0.2));
+      border-color: rgba(100,160,255,0.4);
+      color: #e0f0ff;
+      box-shadow: 0 2px 10px rgba(40,100,220,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .score-badge {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.9rem;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+    }
+    .badge-shine {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: rgba(255,255,255,0.2);
+      pointer-events: none;
+    }
+
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+    .stats-table th {
+      background: rgba(40,90,200,0.4);
+      color: #b8d8ff;
+      font-weight: 700;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(100,160,255,0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .stats-table th:first-child { border-radius: 8px 0 0 0; }
+    .stats-table th:last-child { border-radius: 0 8px 0 0; }
+    .stats-table td {
+      padding: 10px 12px;
+      color: rgba(200,225,255,0.85);
+      border-bottom: 1px solid rgba(60,100,200,0.15);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .stats-table tr:last-child td { border-bottom: none; }
+    .stats-table tr:hover td { background: rgba(60,120,255,0.07); }
+    .stats-table .center { text-align: center; }
+    .stats-table .score-col {
+      color: #7dd3fc;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      width: 50px;
+    }
+    .stats-table .label-col {
+      color: #93c5fd;
+      font-weight: 600;
+      width: 160px;
+    }
+
+    .true-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(16,185,129,0.25));
+      border: 1px solid rgba(34,197,94,0.4);
+      border-radius: 6px;
+      color: #4ade80;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .row-blue   td:first-child { color: #60a5fa; font-weight: 700; }
+    .row-orange td:first-child { color: #fb923c; font-weight: 700; }
+    .row-green  td:first-child { color: #34d399; font-weight: 700; }
+    .row-yellow td:first-child { color: #fbbf24; font-weight: 700; }
+    .row-purple td:first-child { color: #c084fc; font-weight: 700; }
+    .row-subtotal td { background: rgba(60,100,200,0.15); font-weight: 700; color: #a5c8ff; }
+    .row-weight  td { background: rgba(40,80,180,0.2); font-weight: 700; color: #7bb3ff; }
+    .row-wsum    td { background: rgba(30,70,180,0.3); font-weight: 800; color: #60a5fa; font-size: 0.9rem; }
+    .row-stage   td { background: rgba(20,60,170,0.35); font-weight: 800; color: #93c5fd; }
+
+    .stage-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(16,185,129,0.2));
+      border: 1px solid rgba(34,197,94,0.4);
+      border-radius: 20px;
+      color: #4ade80;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .outcome-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(10,20,50,0.5); }
+    ::-webkit-scrollbar-thumb { background: rgba(60,120,220,0.4); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<div class="aero-bg"></div>
+<div class="aero-blob blob-a"></div>
+<div class="aero-blob blob-b"></div>
+<div class="aero-blob blob-c"></div>
+
+<nav class="sticky top-4 z-50 mx-auto w-[95%] max-w-7xl px-6 md:px-8 py-3.5 flex justify-between items-center transition-all duration-300 rounded-[24px] border border-blue-400/40" style="background: rgba(15, 35, 75, 0.45); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255,255,255,0.2);">
+    <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-blue-400 via-blue-600 to-blue-900 p-[2px] shadow-orb-glow relative overflow-hidden group">
+            <div class="absolute inset-0 bg-white/10 rounded-full"></div>
+            <div class="absolute top-0 left-0 right-0 h-[45%] bg-white/40 rounded-t-full"></div>
+            <div class="w-full h-full rounded-full flex items-center justify-center relative z-10 bg-gradient-to-br from-blue-800 to-blue-950">
+                <img src="monkey.jpg" alt="Profile" class="w-full h-full object-cover rounded-full drop-shadow" />
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-bold text-lg leading-tight text-white tracking-tight flex items-center gap-1.5">
+                Ralph Gabriel Acula
+                <span class="px-2 py-0.5 text-[10px] bg-blue-500/25 border border-blue-400 text-blue-300 font-extrabold rounded-full uppercase tracking-wider">BLIS</span>
+            </span>
+            <span class="text-xs font-bold text-blue-400 tracking-wider uppercase">PNU Developmental Portfolio</span>
+        </div>
+    </div>
+
+    <ul class="hidden lg:flex items-center space-x-1.5 font-bold text-sm text-blue-100 bg-blue-900/40 p-1.5 rounded-full border border-blue-400/40 shadow-inner backdrop-blur-sm">
+        <li><a href="index.html" class="block px-4.5 py-2.5 rounded-full hover:bg-blue-500/30 hover:text-white transition-all">Introduction</a></li>
+        <li><a href="stats.html" class="block px-4.5 py-2.5 rounded-full bg-gradient-to-b from-blue-500/70 to-blue-700/50 text-white shadow-md transition-all border border-blue-400/50">Self-Assessment</a></li>
+        <li><a href="evidence.html" class="block px-4.5 py-2.5 rounded-full hover:bg-blue-500/30 hover:text-white transition-all">Evidence &amp; Reflections</a></li>
+    </ul>
+
+    <button id="mobileMenuBtn" class="lg:hidden text-blue-300 p-2 bg-blue-950/60 rounded-full border border-blue-500/40 hover:bg-blue-900/70 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+</nav>
+
+<div id="mobileDrawer" class="hidden fixed inset-x-4 top-24 z-40 p-6 flex flex-col gap-4 shadow-2xl transition-all duration-300 rounded-[24px] border border-blue-400/40" style="background: rgba(10, 25, 60, 0.95); backdrop-filter: blur(25px);">
+    <a href="index.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-blue-500/20 border-b border-blue-500/30">Introduction</a>
+    <a href="stats.html" class="text-lg font-bold text-blue-300 bg-blue-500/20 p-3 rounded-xl border-b border-blue-500/30">Self-Assessment</a>
+    <a href="evidence.html" class="text-lg font-bold text-white p-3 rounded-xl hover:bg-blue-500/20">Evidence &amp; Reflections</a>
+</div>
+
+<main class="relative z-10 max-w-5xl mx-auto px-4 py-12">
+
+  <div class="dove-banner p-8 mb-8">
+    <div class="flex items-start gap-5 relative z-10">
+      <div class="hero-orb"><div class="orb-shine"></div></div>
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase mb-1" style="color:rgba(100,170,255,0.7);">PNU Portfolio · BLIS II – 8</p>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-white mb-2" style="text-shadow:0 2px 8px rgba(30,80,200,0.5);">
+          Self-Assessment Tool for Aspiring Teachers
+        </h1>
+        <p class="text-sm font-bold tracking-widest uppercase mb-3" style="color:rgba(100,170,255,0.8);">STATS</p>
+        <p class="text-justify text-sm leading-relaxed" style="color:rgba(180,215,255,0.8); max-width:620px;">
+          To support professional growth as pre-service teachers, this tool enables reflection on development across PNU's five institutional outcomes. Each indicator is rated on a 4-point scale, with a maximum possible score of 64 points. Based on the total score, an aspiring teacher is classified into one of four developmental stages, each representing a phase in the journey toward becoming a future-ready educator.
+        </p>
+        <a href="index.html" class="glass-btn mt-4 inline-block"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-card p-6 mb-8">
+    <h2 class="text-base font-extrabold text-white mb-4 flex items-center gap-2">
+      <span style="color:#60a5fa;">⬡</span> Rating Scale, Description, and Interpretation
+    </h2>
+    <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th class="center" style="width:70px;">Score</th>
+            <th style="width:200px;">Description</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="score-col">1</td>
+            <td class="label-col">Not Yet Demonstrated</td>
+            <td>I am still developing my understanding and ability to apply this in my practice. I seldom demonstrate this behavior or competency.</td>
+          </tr>
+          <tr>
+            <td class="score-col">2</td>
+            <td class="label-col">Occasionally Demonstrated</td>
+            <td>I show this sometimes, but I need more practice or clarity in applying it. I sometimes show this behavior or competency, but not consistently.</td>
+          </tr>
+          <tr>
+            <td class="score-col">3</td>
+            <td class="label-col">Often Demonstrated</td>
+            <td>I apply this in most situations, but not consistently. I usually demonstrate this behavior or competency.</td>
+          </tr>
+          <tr>
+            <td class="score-col">4</td>
+            <td class="label-col">Consistently Demonstrated</td>
+            <td>I consistently apply or embody this in my academic and teaching-related activities. I regularly demonstrate this behavior or competency.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="glass-card p-6 mb-8">
+    <h2 class="text-base font-extrabold text-white mb-4 flex items-center gap-2">
+      <span style="color:#60a5fa;">⬡</span> Self-Rating by Institutional Outcome
+    </h2>
+
+    <div class="tab-bar mb-6 overflow-x-auto">
+      <button class="tab-btn active" onclick="switchTab('t1', this)">Digital Literate</button>
+      <button class="tab-btn" onclick="switchTab('t2', this)">Design Thinker</button>
+      <button class="tab-btn" onclick="switchTab('t3', this)">Discerning Person</button>
+      <button class="tab-btn" onclick="switchTab('t4', this)">Lifelong Learner</button>
+      <button class="tab-btn" onclick="switchTab('t5', this)">Global Citizen</button>
+    </div>
+
+    <div id="t1" class="tab-panel active">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="outcome-pill" style="background:rgba(59,130,246,0.15); border-color:rgba(59,130,246,0.4); color:#93c5fd;">
+          <span>💻</span> Digital Literate &amp; Data-Driven Decision Maker
+        </span>
+      </div>
+      <p class="text-xs mb-4" style="color:rgba(160,200,255,0.65);">An aspiring teacher is aware of and practices basic digital and data literacy to support his/her learning and make informed decisions.</p>
+      <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th style="width:50%;">Indicator</th>
+              <th class="center" style="width:80px;">1</th>
+              <th class="center" style="width:80px;">2</th>
+              <th class="center" style="width:80px;">3</th>
+              <th class="center" style="width:80px;">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I have used basic digital tools (e.g., Word, Excel, learning platforms) to complete my GE coursework, submitting at least 90% of outputs on time with at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have presented my outputs in an organized, purposeful and meaningful way across my GE courses, meeting the agreed criteria and achieving at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+            <tr>
+              <td>I have demonstrated responsible and ethical use of digital platforms (e.g., online forums, cloud storage, social media) for collaboration in my GE courses, upholding academic integrity and meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have reflected on how my use of data and digital tools has contributed to my professional identity and competence, and how these experiences have shaped my future-ready teaching practices, by preparing portfolio entries throughout the academic year, meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="t2" class="tab-panel">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="outcome-pill" style="background:rgba(249,115,22,0.12); border-color:rgba(249,115,22,0.35); color:#fdba74;">
+          <span>💡</span> Design Thinker &amp; Innovator
+        </span>
+      </div>
+      <p class="text-xs mb-4" style="color:rgba(160,200,255,0.65);">An aspiring teacher embraces creativity and innovation in addressing challenges. S/he demonstrates understanding that designing solutions to problems needs integration across disciplinary perspectives.</p>
+      <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th style="width:50%;">Indicator</th>
+              <th class="center" style="width:80px;">1</th>
+              <th class="center" style="width:80px;">2</th>
+              <th class="center" style="width:80px;">3</th>
+              <th class="center" style="width:80px;">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I have applied creative and critical thinking to solve at least two interdisciplinary or cross-GE problems, as shown in outputs or activities evaluated with at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have produced at least two original or adapted academic outputs (visual, multimedia, or models) in GE courses that show innovative and thoughtful design, meeting the agreed criteria and earning at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have reflected on how innovation enhances future teaching practices and learner engagement by preparing portfolio entries throughout the academic year, meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td><td class="center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="t3" class="tab-panel">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="outcome-pill" style="background:rgba(16,185,129,0.12); border-color:rgba(16,185,129,0.35); color:#6ee7b7;">
+          <span>🌿</span> Discerning &amp; Compassionate Person
+        </span>
+      </div>
+      <p class="text-xs mb-4" style="color:rgba(160,200,255,0.65);">An aspiring teacher understands and respects the dignity of others while practicing ethical and empathetic decision-making.</p>
+      <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th style="width:50%;">Indicator</th>
+              <th class="center" style="width:80px;">1</th>
+              <th class="center" style="width:80px;">2</th>
+              <th class="center" style="width:80px;">3</th>
+              <th class="center" style="width:80px;">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I have completed a self-assessment during the academic year reflecting on my thoughts, feelings, and academic journey with empathy, respect, and ethical judgment, covering my learning and experiences in my GE courses as evaluated through an agreed rubric.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+            <tr>
+              <td>I have communicated my principles and ethical beliefs with respect and sensitivity in class discussions, group activities, and presentations, and documented these experiences in written outputs, earning at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+            <tr>
+              <td>I have reflected on the role of compassion and discernment in becoming a responsible, future-ready teacher by preparing portfolio entries throughout the academic year, meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="t4" class="tab-panel">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="outcome-pill" style="background:rgba(234,179,8,0.12); border-color:rgba(234,179,8,0.35); color:#fde68a;">
+          <span>🌱</span> Dynamic Lifelong Learner &amp; Leader
+        </span>
+      </div>
+      <p class="text-xs mb-4" style="color:rgba(160,200,255,0.65);">An aspiring teacher seeks continuous learning, growth, and initiative in both academic, co-curricular, and professional environments and situations.</p>
+      <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th style="width:50%;">Indicator</th>
+              <th class="center" style="width:80px;">1</th>
+              <th class="center" style="width:80px;">2</th>
+              <th class="center" style="width:80px;">3</th>
+              <th class="center" style="width:80px;">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I have set goals and sought learning opportunities to improve my personal and academic development by preparing and reviewing a personal development plan at the start, midyear, and end of the academic year, documenting at least two learning opportunities pursued.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+            <tr>
+              <td>I have contributed to individual and group tasks, showing initiative and openness to feedback, as evaluated by peers or faculty each trimester with at least a satisfactory rating.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have reflected on how habits of continuous learning prepare me for the teaching profession by preparing portfolio entries throughout the academic year, meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="t5" class="tab-panel">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="outcome-pill" style="background:rgba(168,85,247,0.12); border-color:rgba(168,85,247,0.35); color:#d8b4fe;">
+          <span>🌐</span> Deeply-rooted Global Citizen
+        </span>
+      </div>
+      <p class="text-xs mb-4" style="color:rgba(160,200,255,0.65);">An aspiring teacher is aware of global-local interconnections and committed to inclusive and sustainable perspectives.</p>
+      <div class="overflow-x-auto rounded-xl" style="border:1px solid rgba(80,130,255,0.2);">
+        <table class="stats-table">
+          <thead>
+            <tr>
+              <th style="width:50%;">Indicator</th>
+              <th class="center" style="width:80px;">1</th>
+              <th class="center" style="width:80px;">2</th>
+              <th class="center" style="width:80px;">3</th>
+              <th class="center" style="width:80px;">4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>I have participated in global or intercultural activities, discussions, or projects in my GE courses, demonstrating respect for diverse systems, cultures, and issues as shown in rubric-based evaluations.</td>
+              <td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td><td class="center"></td>
+            </tr>
+            <tr>
+              <td>I have demonstrated openness to diverse cultural and social perspectives by participating in community service or intercultural dialogues in my GE courses, as reflected in peer and faculty evaluations.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+            <tr>
+              <td>I have reflected on how I embrace my responsibility of being globally aware and locally responsive in preparing for future teaching by preparing portfolio entries throughout the academic year, meeting the agreed criteria.</td>
+              <td class="center"></td><td class="center"></td><td class="center"></td><td class="center"><span class="true-mark">✓</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="glass-card p-6 mb-8">
+    <h2 class="text-base font-extrabold text-white mb-1 flex items-center gap-2">
+      <span style="color:#60a5fa;">⬡</span> Summary of Scores and Interpretation
+    </h2>
+    <p class="text-xs mb-5" style="color:rgba(160,200,255,0.6);">Acula, Ralph Gabriel &nbsp;·&nbsp; BLIS II – 8</p>
+
+    <div class="overflow-x-auto rounded-xl mb-6" style="border:1px solid rgba(80,130,255,0.2);">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th rowspan="2" style="vertical-align:bottom; width:220px;">Institutional Outcomes</th>
+            <th colspan="4" class="center">Weighted Scores</th>
+          </tr>
+          <tr>
+            <th class="center" style="width:70px;">1</th>
+            <th class="center" style="width:70px;">2</th>
+            <th class="center" style="width:70px;">3</th>
+            <th class="center" style="width:70px;">4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-blue">
+            <td>Digital Literate and Data-Driven Decision Maker</td>
+            <td class="center">0</td><td class="center">0</td><td class="center">2</td><td class="center">2</td>
+          </tr>
+          <tr class="row-orange">
+            <td>Design Thinker and Innovator</td>
+            <td class="center">0</td><td class="center">1</td><td class="center">1</td><td class="center">1</td>
+          </tr>
+          <tr class="row-green">
+            <td>Discerning and Compassionate Person</td>
+            <td class="center">0</td><td class="center">0</td><td class="center">3</td><td class="center">0</td>
+          </tr>
+          <tr class="row-yellow">
+            <td>Dynamic Lifelong Learner and Leader</td>
+            <td class="center">0</td><td class="center">0</td><td class="center">2</td><td class="center">1</td>
+          </tr>
+          <tr class="row-purple">
+            <td>Deeply-rooted Global Citizen</td>
+            <td class="center">0</td><td class="center">0</td><td class="center">0</td><td class="center">3</td>
+          </tr>
+          <tr class="row-subtotal">
+            <td>Sub-total</td>
+            <td class="center">0</td><td class="center">1</td><td class="center">8</td><td class="center">7</td>
+          </tr>
+          <tr class="row-weight">
+            <td>Weight</td>
+            <td class="center">0</td><td class="center">2</td><td class="center">24</td><td class="center">28</td>
+          </tr>
+          <tr class="row-wsum">
+            <td colspan="3" style="text-align:right; padding-right:20px; color:#93c5fd; font-size:0.8rem;">Weighted Sum</td>
+            <td colspan="2" class="center" style="font-size:1.1rem; color:#60a5fa; letter-spacing:0.05em;">54</td>
+          </tr>
+          <tr class="row-stage">
+            <td colspan="3" style="text-align:right; padding-right:20px; color:#93c5fd; font-size:0.8rem;">Aspiring Teacher Stage</td>
+            <td colspan="2" class="center"><span class="stage-badge">Consolidating</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rounded-xl p-5" style="background:rgba(34,197,94,0.07); border:1px solid rgba(34,197,94,0.2);">
+      <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:rgba(74,222,128,0.7);">Interpretation</p>
+      <p class="text-sm leading-relaxed" style="color:rgba(200,240,220,0.85);">
+        "You are consistently engaged and committed to becoming a teacher. You show responsibility, creativity, and openness to growth. Use this stage to set goals and keep strengthening your skills."
+      </p>
+      <p class="text-xs mt-3" style="color:rgba(160,210,180,0.55);">
+        The summary score is used to understand your current stage in the continuum of teacher development. This interpretation is meant to support your reflection and guide your personal and professional growth — intended not only as a scoring mechanism but also as a guide for your reflective growth and professional self-awareness as a pre-service teacher. Scores should be approached as a developmental guide rather than a summative judgment.
+      </p>
+    </div>
+  </div>
+
+  <div class="text-center py-6">
+    <p class="text-xs" style="color:rgba(100,150,220,0.45);">Ralph Gabriel Acula · BLIS II – 8 · PNU Portfolio</p>
+  </div>
+
+</main>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const drawer = document.getElementById('mobileDrawer');
+      drawer.classList.toggle('hidden');
+  });
+
+  document.querySelectorAll('#mobileDrawer a').forEach(link => {
+      link.addEventListener('click', () => {
+          document.getElementById('mobileDrawer').classList.add('hidden');
+      });
+  });
+</script>
+</body>
+</html>
